@@ -49,14 +49,16 @@ class LoggerTest {
     @Test fun errorLog() {
         MysticLogger.printer.error("message %s", "arg")
 
-        verify(printer).error(throwable = null) { String.format("message %s", "arg") }
+        verify(printer).error("message %s", "arg")
     }
 
     @Test fun errorLogWithThrowable() {
         val throwable = Throwable("throwable")
-        MysticLogger.error(throwable) { String.format("message %s", "arg") }
+        val message = String.format("message %s", "arg")
 
-        verify(printer).error(throwable) { String.format("message %s", "arg") }
+        MysticLogger.error(message, throwable)
+
+        verify(printer).error(message, throwable)
     }
 
     @Test fun infoLog() {
