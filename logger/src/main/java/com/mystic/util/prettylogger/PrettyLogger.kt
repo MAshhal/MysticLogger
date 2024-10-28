@@ -17,24 +17,24 @@ interface PrettyLogger {
         get() = getTag(javaClass)
 }
 
-object PrinterHolder {
+object MysticLogger: PrettyLogger {
     var printer: Printer = LoggerPrinter()
 }
 
 fun PrettyLogger.getPrinter(): Printer {
-    return PrinterHolder.printer
+    return MysticLogger.printer
 }
 
 fun PrettyLogger.setPrinter(printer: Printer) {
-    PrinterHolder.printer = printer
+    MysticLogger.printer = printer
 }
 
 fun PrettyLogger.addAdapter(adapter: LogAdapter) {
-    PrinterHolder.printer.addAdapter(adapter)
+    MysticLogger.printer.addAdapter(adapter)
 }
 
 fun PrettyLogger.clearAdapters() {
-    PrinterHolder.printer.clearLogAdapters()
+    MysticLogger.printer.clearLogAdapters()
 }
 
 /**
@@ -42,71 +42,75 @@ fun PrettyLogger.clearAdapters() {
  * Note: this tag is used once only. For every log tag, you should config
  */
 fun PrettyLogger.tag(tag: String?): Printer {
-    return PrinterHolder.printer.tag(tag)
+    return MysticLogger.printer.tag(tag)
+}
+
+fun PrettyLogger.log(priority: Int, tag: String?, message: Any?, throwable: Throwable? = null) {
+    MysticLogger.printer.log(priority, tag, message, throwable)
 }
 
 fun PrettyLogger.debug(message: Any?, throwable: Throwable? = null) {
-    PrinterHolder.printer.debug(message, throwable)
+    MysticLogger.printer.debug(message, throwable)
 }
 
 fun PrettyLogger.verbose(message: Any?) {
-    PrinterHolder.printer.verbose(message)
+    MysticLogger.printer.verbose(message)
 }
 
 fun PrettyLogger.info(message: Any?) {
-    PrinterHolder.printer.info(message)
+    MysticLogger.printer.info(message)
 }
 
 fun PrettyLogger.warn(message: Any?, throwable: Throwable? = null) {
-    PrinterHolder.printer.warn(message, throwable)
+    MysticLogger.printer.warn(message, throwable)
 }
 
 fun PrettyLogger.error(message: Any?, throwable: Throwable? = null) {
-    PrinterHolder.printer.error(message, throwable)
+    MysticLogger.printer.error(message, throwable)
 }
 
 fun PrettyLogger.wtf(message: Any?, throwable: Throwable? = null) {
-    PrinterHolder.printer.wtf(message, throwable)
+    MysticLogger.printer.wtf(message, throwable)
 }
 
 fun PrettyLogger.debugJson(json: String?) {
-    PrinterHolder.printer.debugJson(json)
+    MysticLogger.printer.debugJson(json)
 }
 
 fun PrettyLogger.debugXml(xml: String?) {
-    PrinterHolder.printer.debugXml(xml)
+    MysticLogger.printer.debugXml(xml)
 }
 
 fun PrettyLogger.verbose(message: () -> Any?) {
-    PrinterHolder.printer.verbose(message)
+    MysticLogger.printer.verbose(message)
 }
 
 fun PrettyLogger.debug(throwable: Throwable? = null, message: () -> Any?) {
-    PrinterHolder.printer.debug(throwable, message)
+    MysticLogger.printer.debug(throwable, message)
 }
 
 fun PrettyLogger.info(message: () -> Any?) {
-    PrinterHolder.printer.info(message)
+    MysticLogger.printer.info(message)
 }
 
 fun PrettyLogger.warn(throwable: Throwable? = null, message: () -> Any?) {
-    PrinterHolder.printer.warn(throwable, message)
+    MysticLogger.printer.warn(throwable, message)
 }
 
 fun PrettyLogger.error(throwable: Throwable? = null, message: () -> Any?) {
-    PrinterHolder.printer.error(throwable, message)
+    MysticLogger.printer.error(throwable, message)
 }
 
 fun PrettyLogger.wtf(throwable: Throwable? = null, message: () -> Any?) {
-    PrinterHolder.printer.wtf(throwable, message)
+    MysticLogger.printer.wtf(throwable, message)
 }
 
 fun PrettyLogger.debugJson(json: () -> String?) {
-    PrinterHolder.printer.debugJson(json)
+    MysticLogger.printer.debugJson(json)
 }
 
 fun PrettyLogger.debugXml(xml: () -> String?) {
-    PrinterHolder.printer.debugXml(xml)
+    MysticLogger.printer.debugXml(xml)
 }
 
 private fun getTag(jClass: Class<*>): String {
