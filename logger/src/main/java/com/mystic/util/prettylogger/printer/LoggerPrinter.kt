@@ -30,12 +30,20 @@ class LoggerPrinter: Printer {
         private const val JSON_INDENT = 2
     }
 
+    override fun debug(message: Any?, vararg args: Any?) {
+        log(DEBUG, null, message, *args)
+    }
+
     override fun debug(message: Any?, throwable: Throwable?) {
         log(DEBUG, null, message, throwable)
     }
 
     override fun debug(throwable: Throwable?, message: () -> Any?) {
         log(DEBUG, null, throwable, message)
+    }
+
+    override fun error(message: Any?, vararg args: Any?) {
+        log(ERROR, null, message, *args)
     }
 
     override fun error(message: Any?, throwable: Throwable?) {
@@ -46,12 +54,20 @@ class LoggerPrinter: Printer {
         log(ERROR, null, throwable, message)
     }
 
+    override fun warn(message: Any?, vararg args: Any?) {
+        log(WARN, null, message, *args)
+    }
+
     override fun warn(message: Any?, throwable: Throwable?) {
         log(WARN, null, message, throwable)
     }
 
     override fun warn(throwable: Throwable?, message: () -> Any?) {
         log(WARN, null, throwable, message)
+    }
+
+    override fun info(message: Any?, vararg args: Any?) {
+        log(INFO, null, message, *args)
     }
 
     override fun info(message: Any?) {
@@ -62,12 +78,20 @@ class LoggerPrinter: Printer {
         log(INFO, null, null, message)
     }
 
+    override fun verbose(message: Any?, vararg args: Any?) {
+        log(VERBOSE, null, message, *args)
+    }
+
     override fun verbose(message: Any?) {
         log(VERBOSE, null, message)
     }
 
     override fun verbose(message: () -> Any?) {
         log(VERBOSE, null, null, message)
+    }
+
+    override fun wtf(message: Any?, vararg args: Any?) {
+        log(ASSERT, null, message, *args)
     }
 
     override fun wtf(message: Any?, throwable: Throwable?) {
@@ -161,6 +185,24 @@ class LoggerPrinter: Printer {
             .filter { adapter -> adapter.isLoggable(priority, usingTag) }
             .apply { msg = composeMessage(message, throwable) }
             .forEach { adapter -> adapter.log(priority, usingTag, msg) }
+    }
+
+    @Synchronized
+    override fun log(priority: Int, tag: String?, message: Any?, vararg args: Any?) {
+        var msg: String
+        val usingTag = tag ?: getTag()
+        logAdapters
+            .filter { adapter -> adapter.isLoggable(priority, usingTag) }
+            .apply { msg = composeMessage(message, *args) }
+            .forEach { adapter -> adapter.log(priority, usingTag, msg) }
+    }
+
+    private fun composeMessage(message: Any?, vararg args: Any?): String {
+        return if (args.isEmpty()) {
+            LoggerUtils.toString(message)
+        } else {
+            String.format(LoggerUtils.toString(message), *args)
+        }
     }
 
     private fun composeMessage(message: Any?, throwable: Throwable?): String {

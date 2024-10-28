@@ -63,10 +63,10 @@ class DiskLogStrategy(private val handler: Handler) : LogStrategy {
             val folder = File(directoryName)
             if (!folder.exists() && !folder.mkdirs()) {
                 throw RuntimeException(
-                    message = """
+                    """
                         Directory $directoryName could not be created
                         Make sure you have the permissions to write in external storage if the directory provided is `Environment.getExternalStorageDirectory()` 
-                        """.trimIndent()
+                    """.trimIndent()
                 )
             }
 
