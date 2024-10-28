@@ -26,5 +26,8 @@ android {
 dependencies {
     implementation(libs.androidx.annotation)
 
-    testImplementation(libs.bundles.testDependencies)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockito)
+    testImplementation(libs.roboelectric)
 }

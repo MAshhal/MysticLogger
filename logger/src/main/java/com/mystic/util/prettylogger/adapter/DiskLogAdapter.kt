@@ -9,7 +9,7 @@ import com.mystic.util.prettylogger.strategy.format.csvFormatStrategyBuilder
  * Date: Mon, Oct 28, 2024
  * Time: 10:14 AM
  */
-class DiskLogAdapter(
+open class DiskLogAdapter(
     private val formatStrategy: FormatStrategy
 ): LogAdapter {
 
