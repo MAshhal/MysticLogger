@@ -75,6 +75,14 @@ class CsvFormatStrategy(
             append(SEPARATOR)
             append(tag)
 
+            // message
+            append(SEPARATOR)
+            if (message.contains(DOUBLE_QUOTES) || message.contains(SEPARATOR) || message.contains(NEW_LINE)) {
+                append("$DOUBLE_QUOTES${message.replace(DOUBLE_QUOTES, APOSTROPHE)}$DOUBLE_QUOTES")
+            } else {
+                append(message)
+            }
+
             // code location
             append(SEPARATOR)
             var myMethodCount = methodCount
@@ -107,14 +115,6 @@ class CsvFormatStrategy(
                 level += "   "
             }
             append(DOUBLE_QUOTES)
-
-            // message
-            append(SEPARATOR)
-            if (message.contains(DOUBLE_QUOTES) || message.contains(SEPARATOR) || message.contains(NEW_LINE)) {
-                append("$DOUBLE_QUOTES${message.replace(DOUBLE_QUOTES, APOSTROPHE)}$DOUBLE_QUOTES")
-            } else {
-                append(message)
-            }
 
             // new line
             append(NEW_LINE)

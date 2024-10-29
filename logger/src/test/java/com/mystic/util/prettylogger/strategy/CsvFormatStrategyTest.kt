@@ -6,7 +6,7 @@ package com.mystic.util.prettylogger.strategy
  * Date: Mon, Oct 28, 2024
  * Time: 1:43 PM
  */
-import android.os.Environment
+
 import android.util.Log.VERBOSE
 import com.google.common.truth.Truth.assertThat
 import com.mystic.util.prettylogger.strategy.format.csvFormatStrategyBuilder
@@ -15,18 +15,15 @@ import org.junit.Test
 
 class CsvFormatStrategyTest {
 
-    private val directoryPath =
-        Environment.getExternalStorageDirectory().absolutePath + "/logger/logs"
+    private val directoryPath = "/storage/emulated/0/logger/logs"
 
     @Test
     fun log() {
         val formatStrategy = csvFormatStrategyBuilder(directoryPath) {
-            logStrategy = object : LogStrategy {
-                override fun log(priority: Int, tag: String?, message: String) {
-                    assertThat(tag).isEqualTo("MYSTIC_LOGGER-tag")
-                    assertThat(priority).isEqualTo(VERBOSE)
-                    assertThat(message).contains("VERBOSE,MYSTIC_LOGGER-tag,message")
-                }
+            logStrategy = LogStrategy { priority, tag, message ->
+                assertThat(tag).isEqualTo("MYSTIC_LOGGER-tag")
+                assertThat(priority).isEqualTo(VERBOSE)
+                assertThat(message).contains("VERBOSE,MYSTIC_LOGGER-tag,message")
             }
         }
 
@@ -36,11 +33,7 @@ class CsvFormatStrategyTest {
     @Test
     fun defaultTag() {
         val formatStrategy = csvFormatStrategyBuilder(directoryPath) {
-            logStrategy = object : LogStrategy {
-                override fun log(priority: Int, tag: String?, message: String) {
-                    assertThat(tag).isEqualTo("MYSTIC_LOGGER")
-                }
-            }
+            logStrategy = LogStrategy { _, tag, _ -> assertThat(tag).isEqualTo("MYSTIC_LOGGER") }
         }
 
         formatStrategy.log(VERBOSE, null, "message")
@@ -50,11 +43,7 @@ class CsvFormatStrategyTest {
     fun customTag() {
         val formatStrategy = csvFormatStrategyBuilder(directoryPath) {
             tag = "custom"
-            logStrategy = object : LogStrategy {
-                override fun log(priority: Int, tag: String?, message: String) {
-                    assertThat(tag).isEqualTo("custom")
-                }
-            }
+            logStrategy = LogStrategy { _, tag, _ -> assertThat(tag).isEqualTo("custom") }
         }
 
         formatStrategy.log(VERBOSE, null, "message")
