@@ -1,11 +1,10 @@
-<img align="right" src='https://github.com/user-attachments/assets/0ec61e3a-bcab-45c5-9225-78f281c0367d' width='30%'/>
+<img align="right" src='https://github.com/user-attachments/assets/0de98482-d4be-4669-92d0-4effb3964ecc' width='30%'/>
 
 ### MysticLogger
 Simple, pretty and powerful logger for android
 
 
-
-<img src="https://img.shields.io/github/license/MAshhal/PrettyLogger?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=006f0c" alt="license">	<img src="https://img.shields.io/github/last-commit/MAshhal/PrettyLogger?style=for-the-badge&logo=git&logoColor=white&color=006f0c" alt="last-commit"> <img src="https://img.shields.io/github/languages/top/MAshhal/PrettyLogger?style=for-the-badge&color=006f0c" alt="repo-top-language"> <img src="https://img.shields.io/github/languages/count/MAshhal/PrettyLogger?style=for-the-badge&color=006f0c" alt="repo-language-count">
+<img src="https://img.shields.io/github/license/MAshhal/PrettyLogger?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=006f0c" alt="license">	<img src="https://img.shields.io/github/last-commit/MAshhal/PrettyLogger?style=for-the-badge&logo=git&logoColor=white&color=006f0c" alt="last-commit"> <img src="https://img.shields.io/github/languages/top/MAshhal/PrettyLogger?style=for-the-badge&color=006f0c" alt="repo-top-language">
 
 ### Setup
 Download
