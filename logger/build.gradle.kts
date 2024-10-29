@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.scope.getDirectories
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -23,8 +25,21 @@ android {
 
 }
 
+val mockitoAgent = configurations.create("mockitoAgent")
+
 dependencies {
     implementation(libs.androidx.annotation)
 
-    testImplementation(libs.bundles.testDependencies)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockito)
+    testImplementation(libs.mockk)
+    testImplementation(libs.roboelectric)
+    // https://mvnrepository.com/artifact/org.json/json
+    testImplementation(libs.json)
+
+
+    mockitoAgent(libs.mockito) { isTransitive = false }
 }
+
+tasks.withType<Test> { jvmArgs("-javaagent:${mockitoAgent.asPath}") }

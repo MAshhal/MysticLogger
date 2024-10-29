@@ -1,5 +1,6 @@
 [versions]
 compileSdk = "35"
+json = "20240303"
 targetSdk = "35"
 minSdk = "21"
 
@@ -13,12 +14,14 @@ lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.3"
 androidxAnnotation = "1.9.0"
 composeBom = "2024.10.00"
+mockk = "1.13.13"
 mockito = "5.14.2"
 robolectric = "4.13"
 truth = "1.4.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+json = { module = "org.json:json", version.ref = "json" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -32,6 +35,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
 roboelectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }

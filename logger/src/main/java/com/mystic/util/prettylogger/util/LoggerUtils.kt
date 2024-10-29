@@ -101,7 +101,7 @@ object LoggerUtils {
 
     fun formatTag(defaultTag: String, passedInTag: String?): String {
         return if (!passedInTag.isNullOrEmpty() && defaultTag != passedInTag) {
-            "$defaultTag - $passedInTag"
+            "$defaultTag-$passedInTag"
         } else defaultTag
     }
 

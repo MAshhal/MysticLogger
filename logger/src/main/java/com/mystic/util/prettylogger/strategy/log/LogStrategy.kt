@@ -6,6 +6,6 @@ package com.mystic.util.prettylogger.strategy.log
  * Date: Mon, Oct 28, 2024
  * Time: 9:41 AM
  */
-interface LogStrategy {
+fun interface LogStrategy {
     fun log(priority: Int, tag: String?, message: String)
 }
