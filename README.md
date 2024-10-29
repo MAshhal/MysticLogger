@@ -1,4 +1,4 @@
-<img align="right" src='https://github.com/user-attachments/assets/0de98482-d4be-4669-92d0-4effb3964ecc' width='30%'/>
+<img align="right" src='https://github.com/user-attachments/assets/0de98482-d4be-4669-92d0-4effb3964ecc' width='50%'/>
 
 ### MysticLogger
 Simple, pretty and powerful logger for android
