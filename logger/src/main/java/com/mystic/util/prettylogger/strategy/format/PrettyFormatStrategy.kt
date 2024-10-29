@@ -135,7 +135,7 @@ class PrettyFormatStrategy(
     }
 
     private fun logContent(logType: Int, tag: String?, chunk: String?) {
-        val lines = chunk?.split(System.getProperty("line.separator").toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
+        val lines = chunk?.split(System.lineSeparator().toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
         lines?.forEach {
             logChunk(logType, tag,   "$HORIZONTAL_LINE $it")
         }
