@@ -9,6 +9,20 @@ import com.mystic.util.prettylogger.strategy.format.prettyFormatStrategyBuilder
  * Date: Mon, Oct 28, 2024
  * Time: 9:36 AM
  */
+
+/**
+ * Android terminal log output implementation for [LogAdapter].
+ *
+ * Prints output to LogCat with pretty borders.
+ *
+ * <pre>
+ *  ┌──────────────────────────
+ *  │ Method stack history
+ *  ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+ *  │ Log message
+ *  └──────────────────────────
+ * </pre>
+ */
 class AndroidLogAdapter(
     private val formatStrategy: FormatStrategy
 ): LogAdapter {

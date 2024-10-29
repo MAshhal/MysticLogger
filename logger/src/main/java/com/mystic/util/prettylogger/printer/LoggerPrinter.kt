@@ -102,6 +102,9 @@ class LoggerPrinter: Printer {
         log(ASSERT, null, throwable, message)
     }
 
+    /**
+     * Provides one-time used tag for the log message
+     */
     private val localTag = ThreadLocal<String>()
 
     private val logAdapters = ArrayList<LogAdapter>()
@@ -169,6 +172,9 @@ class LoggerPrinter: Printer {
         debugXml(xml())
     }
 
+    /**
+     * This method is synchronized in order to avoid messy of logs' order.
+     */
     @Synchronized override fun log(priority: Int, tag: String?, message: Any?, throwable: Throwable?) {
         var msg: String
         val usingTag = tag ?: getTag()
@@ -178,6 +184,9 @@ class LoggerPrinter: Printer {
             .forEach { adapter -> adapter.log(priority, usingTag, msg) }
     }
 
+    /**
+     * This method is synchronized in order to avoid messy of logs' order.
+     */
     @Synchronized override fun log(priority: Int, tag: String?, throwable: Throwable?, message: () -> Any?) {
         var msg: String
         val usingTag = tag ?: getTag()
@@ -187,8 +196,10 @@ class LoggerPrinter: Printer {
             .forEach { adapter -> adapter.log(priority, usingTag, msg) }
     }
 
-    @Synchronized
-    override fun log(priority: Int, tag: String?, message: Any?, vararg args: Any?) {
+    /**
+     * This method is synchronized in order to avoid messy of logs' order.
+     */
+    @Synchronized override fun log(priority: Int, tag: String?, message: Any?, vararg args: Any?) {
         var msg: String
         val usingTag = tag ?: getTag()
         logAdapters

@@ -9,6 +9,10 @@ import com.mystic.util.prettylogger.adapter.LogAdapter
  * Time: 10:15 AM
  */
 
+/**
+ * A proxy interface to enable additional operations.
+ * Contains all possible Log message usages.
+ */
 interface Printer {
     fun addAdapter(adapter: LogAdapter)
 
@@ -51,17 +55,23 @@ interface Printer {
     fun wtf(throwable: Throwable? = null, message: () -> Any?)
 
     /**
-     * Formats the given debugJson content and print it
+     * Formats the given json content and print it
      */
     fun debugJson(json: String?)
 
+    /**
+     * Formats the given json content and print it
+     */
     fun debugJson(json: () -> String?)
 
     /**
-     * Formats the given debugXml content and print it
+     * Formats the given xml content and print it
      */
     fun debugXml(xml: String?)
 
+    /**
+     * Formats the given xml content and print it
+     */
     fun debugXml(xml: () -> String?)
 
     fun log(priority: Int, tag: String? = null, message: Any?, throwable: Throwable? = null)

@@ -24,17 +24,39 @@ import java.util.Locale
  * Time: 9:46 AM
  */
 
-inline fun csvFormatStrategyBuilder(directoryPath: String, block: CsvFormatStrategy.Builder.() -> Unit): CsvFormatStrategy {
+/**
+ * Creates a `CsvFormatStrategy` using the specified directory path and configuration block.
+ *
+ * @param directoryPath The path to the directory where logs will be stored.
+ * @param block A configuration block for customizing the `CsvFormatStrategy.Builder`.
+ * @return A configured `CsvFormatStrategy` instance.
+ */
+inline fun csvFormatStrategyBuilder(directoryPath: String, block: CsvFormatStrategy.Builder.() -> Unit = {}): CsvFormatStrategy {
     return CsvFormatStrategy.Builder().apply(block).build(directoryPath)
 }
 
 /**
+ * Creates a `CsvFormatStrategy` using the application's files directory and configuration block.
  *
+ * @param block A configuration block for customizing the `CsvFormatStrategy.Builder`.
+ * @return A configured `CsvFormatStrategy` instance.
  */
 inline fun Context.csvFormatStrategyBuilder(block: CsvFormatStrategy.Builder.() -> Unit): CsvFormatStrategy {
     return csvFormatStrategyBuilder(filesDir.absolutePath, block)
 }
 
+/**
+ * CSV formatted file logging for Android.
+ * Writes to CSV the following data:
+ * epoch timestamp, ISO8601 timestamp (human-readable), log level, tag, log message, code location.
+ *
+ * @property methodCount The number of methods to include in the stack trace.
+ * @property methodOffset The offset for the stack trace.
+ * @property date The date object used for logging timestamps.
+ * @property dateFormat The format for the human-readable timestamp.
+ * @property logStrategy The strategy for logging the formatted data.
+ * @property tag The default tag for log messages.
+ */
 class CsvFormatStrategy(
     private val methodCount: Int,
     private val methodOffset: Int,
@@ -44,6 +66,11 @@ class CsvFormatStrategy(
     private val tag: String
 ) : FormatStrategy {
 
+    /**
+     * Secondary constructor for `CsvFormatStrategy` using a `Builder` instance.
+     *
+     * @param builder The builder instance used to configure the `CsvFormatStrategy`.
+     */
     private constructor(builder: Builder) : this(
         builder.methodCount,
         builder.methodOffset,
@@ -53,6 +80,13 @@ class CsvFormatStrategy(
         builder.tag
     )
 
+    /**
+     * Logs a message with the specified priority, tag, and message content.
+     *
+     * @param priority The log level (e.g., DEBUG, WARNING).
+     * @param onceOnlyTag An optional tag for the log message.
+     * @param message The log message content.
+     */
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun log(priority: Int, onceOnlyTag: String?, message: String) {
         val tag = LoggerUtils.formatTag(tag, onceOnlyTag)
@@ -123,6 +157,9 @@ class CsvFormatStrategy(
         logStrategy.log(priority, tag, content)
     }
 
+    /**
+     * Builder class for `CsvFormatStrategy`.
+     */
     class Builder {
         var methodCount = 2
         var methodOffset = 0
@@ -133,6 +170,12 @@ class CsvFormatStrategy(
         var tag = "MYSTIC_LOGGER"
 
 
+        /**
+         * Builds a `CsvFormatStrategy` with the specified directory path.
+         *
+         * @param directoryPath The path to the directory where logs will be stored.
+         * @return A configured `CsvFormatStrategy` instance.
+         */
         fun build(directoryPath: String): CsvFormatStrategy {
             if (dateFormat == null) {
                 dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())

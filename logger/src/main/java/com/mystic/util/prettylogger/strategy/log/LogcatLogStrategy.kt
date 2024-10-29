@@ -8,6 +8,12 @@ import android.util.Log.println as logcatPrint
  * Date: Mon, Oct 28, 2024
  * Time: 9:42 AM
  */
+
+/**
+ * LogCat implementation for [LogStrategy]
+ *
+ * This simply prints out all logs to Logcat by using standard {@link Log} class.
+ */
 class LogcatLogStrategy: LogStrategy {
     override fun log(priority: Int, tag: String?, message: String) {
         val logTag = tag ?: DEFAULT_TAG

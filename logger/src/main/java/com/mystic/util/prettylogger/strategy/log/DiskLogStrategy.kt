@@ -14,9 +14,17 @@ import kotlin.jvm.Throws
  * Date: Mon, Oct 28, 2024
  * Time: 9:46 AM
  */
+
+/**
+ * Abstract class that takes care of background threading the file log operation on Android.
+ * implementing classes are free to directly perform I/O operations there.
+ *
+ * Writes all logs to the disk with CSV format.
+ */
 class DiskLogStrategy(private val handler: Handler) : LogStrategy {
 
     override fun log(priority: Int, tag: String?, message: String) {
+
         // Do nothing on the calling thread, simply pass the tag/msg to the background thread
         handler.sendMessage(handler.obtainMessage(priority, message))
     }
@@ -52,7 +60,11 @@ class DiskLogStrategy(private val handler: Handler) : LogStrategy {
         }
 
         /**
+         * This is always called on a single background thread.
+         * Implementing classes must ONLY write to the fileWriter and nothing more.
+         * The abstract class takes care of everything else including close the stream and catching IOException
          *
+         * @param fileWriter an instance of FileWriter already initialised to the correct file
          */
         @Throws(IOException::class)
         private fun writeLog(fileWriter: FileWriter, content: String) {
@@ -61,6 +73,7 @@ class DiskLogStrategy(private val handler: Handler) : LogStrategy {
 
         private fun getLogFile(directoryName: String, fileName: String): File {
             val folder = File(directoryName)
+            // TODO: What if folder is not created, what happens then?
             if (!folder.exists() && !folder.mkdirs()) {
                 throw RuntimeException(
                     """
