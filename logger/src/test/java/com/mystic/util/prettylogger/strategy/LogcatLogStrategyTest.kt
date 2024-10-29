@@ -35,7 +35,7 @@ class LogcatLogStrategyTest {
         logStrategy.log(DEBUG, null, "message")
 
         val logItems = ShadowLog.getLogs()
-        assertThat(logItems[0].tag).isEqualTo("MYSTIC_LOGGER")
+        assertThat(logItems[0].tag).isEqualTo(LogcatLogStrategy.DEFAULT_TAG)
     }
 
 }
