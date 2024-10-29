@@ -14,8 +14,9 @@ import java.net.UnknownHostException
  * Time: 9:49 AM
  */
 
-
-
+/**
+ * Provides convenient methods to some common operations
+ */
 object LoggerUtils {
     private const val MIN_STACK_OFFSET = 5
 
