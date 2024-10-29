@@ -33,7 +33,11 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.mockito)
+    testImplementation(libs.mockk)
     testImplementation(libs.roboelectric)
+    // https://mvnrepository.com/artifact/org.json/json
+    testImplementation(libs.json)
+
 
     mockitoAgent(libs.mockito) { isTransitive = false }
 }

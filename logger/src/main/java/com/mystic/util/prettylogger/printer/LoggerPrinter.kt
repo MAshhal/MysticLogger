@@ -156,7 +156,7 @@ class LoggerPrinter: Printer {
                 setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2")
                 transform(xmlInput, xmlOutput)
             }
-            debug(xmlOutput.writer.toString().replaceFirst(">".toRegex(), ">\n"))
+            debug(xmlOutput.writer.toString().replaceFirst(">", ">\n").trim())
         } catch (e: TransformerException) {
             error("Invalid xml")
         }
@@ -211,10 +211,16 @@ class LoggerPrinter: Printer {
 
     private inline fun composeMessage(message: () -> Any?, throwable: Throwable?): String {
         return buildString {
-            append(LoggerUtils.toString(message()))
-            throwable?.let {
+            if (throwable != null && message() != null) {
+                append(LoggerUtils.toString(message()))
                 append(" : ")
-                append(LoggerUtils.getStackTraceString(it))
+                append(LoggerUtils.getStackTraceString(throwable))
+            } else if (throwable != null && message() == null) {
+                append(LoggerUtils.getStackTraceString(throwable))
+            } else if (throwable == null && message() != null) {
+                append(LoggerUtils.toString(message()))
+            } else {
+                append("Empty/NULL log message")
             }
         }
     }
