@@ -1,8 +1,7 @@
-import com.android.build.gradle.internal.scope.getDirectories
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.maven.publish)
 }
 
 android {
@@ -43,3 +42,21 @@ dependencies {
 }
 
 tasks.withType<Test> { jvmArgs("-javaagent:${mockitoAgent.asPath}") }
+
+publishing {
+    repositories {
+        maven {
+            name = "githubPackages"
+            url = uri("https://maven.pkg.github.com/mashhal/mysticlogger")
+            // username and password (a personal Github access token) should be specified as
+            // `githubPackagesUsername` and `githubPackagesPassword` Gradle properties or alternatively
+            // as `ORG_GRADLE_PROJECT_githubPackagesUsername` and `ORG_GRADLE_PROJECT_githubPackagesPassword`
+            // environment variables
+            credentials(PasswordCredentials::class)
+        }
+    }
+}
+
+mavenPublishing {
+    coordinates("io.github.mashhal", "mystic-logger", "1.0.0")
+}

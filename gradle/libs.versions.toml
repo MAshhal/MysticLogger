@@ -4,7 +4,7 @@ json = "20240303"
 targetSdk = "35"
 minSdk = "21"
 
-agp = "8.7.0-beta02"
+agp = "8.7.1"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -46,6 +46,7 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+maven-publish = { id = "com.vanniktech.maven.publish", version = "0.30.0" }
 
 [bundles]
 testDependencies = ["junit", "truth", "roboelectric", "mockito"]
