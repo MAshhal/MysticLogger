@@ -9,7 +9,7 @@ Simple, pretty and powerful logger for android
 ### Setup
 Download
 ```kotlin
-implementation(io.github.mashhal:prettylogger:x.y.z)
+implementation(io.github.mashhal:prettylogger:1.0.0)
 ```
 
 Initialize and Usage
