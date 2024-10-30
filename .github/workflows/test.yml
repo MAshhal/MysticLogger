@@ -1,8 +1,10 @@
 name: Test
+
 on:
   push:
-    paths-ignore: 
+    paths-ignore:
       - '*.md'
+      - '.github/workflows/**'
 
 env:
   JAVA_VERSION: 21
